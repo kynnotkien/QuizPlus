@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/admin.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="control-panel">
+        <div class="account">
+            <div class="account-picture"></div>
+            <h1 id="usernameDisplay"></h1>
+        </div>
+        <a href="login.html">login</a>
+        <a href="signup.html">register</a>
+        <a href="#" onclick="logout()">logout</a>
+    </div>
+    <section>
+        <div class="main-info">
+            <h1 id="usernameMain"></h1>
+        </div>
+        <div class="main">
+            <form class="form-container" id="addUserForm">
+                <input type="text" id="username" placeholder="Username" required />
+                <input type="email" id="email" placeholder="Email" required />
+                <input type="password" id="password" placeholder="Password" required />
+                <select id="role" required>
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>
+                <button type="submit">Add User</button>
+            </form>            
+            <table class="user-manager" id="user-manager"></table>
+        </div>
+    </section>
+    <script type="module" src="script/admin.js"></script>  
+</body>
+</html>

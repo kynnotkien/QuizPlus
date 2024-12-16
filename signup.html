@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/signin.css">
+    <title>Login</title>
+</head>
+<body>
+    <div class="box">
+        <div class="title">
+            <h1>Register</h1>
+            <p>Welcome to our website!</p>
+        </div>
+        <form class="information" id="registerForm">
+            <p>Email</p>
+            <input type="text" id="registerEmail">
+            <p>Username</p>
+            <input type="text" id="registerUsername">
+            <p>Password</p>
+            <input type="password" id="registerPassword">
+            <button type="register">
+                Create account
+            </button>
+            <p>Already have an account? <a href="login.html">Login</a> here!</p>
+        </form>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="script/register.js"></script>
+</body>
+</html>

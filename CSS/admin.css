@@ -1,0 +1,124 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+}
+
+section{
+    display: block;
+    width: 80%;
+}
+
+.main {
+    width: 95%;
+    display: block;
+    border: solid black 1px;
+    margin: auto;
+}
+
+.main-info {
+    width: 95%;
+    display: block;
+    border: solid black 1px;
+    margin: auto;
+}
+
+.form-container {
+    display: flex;
+}
+
+.form-container input {
+    margin: 10px 10px 10px 0px;
+    height: 30px;
+}
+
+#username {
+    width: 150px;
+}
+
+#email {
+    width: 200px;
+}
+
+#role {
+    width: 50px;
+    height: 30px;
+    margin: 10px 10px 10px 0px;
+}
+
+.form-container button {
+    height: 30px;
+    width: 100px;
+    margin: 10px 10px 10px 0px;
+}
+
+.user-manager {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+.user-manager td, .user-manager th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+.user-manager tr:nth-child(even){background-color: #f2f2f2;}
+  
+.user-manager tr:hover {background-color: #ddd;}
+  
+.user-manager th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+  }
+
+#role-edit{
+    margin: auto;
+    width: 100%;
+    height: 50px;
+    font-size: 15px;
+}
+
+.edit-user{
+    margin: auto;
+    width: 100%;
+    height: 50px;
+    font-size: 15px;
+}
+
+.control-panel{
+    position: sticky;
+    width: 20%;
+    height: 100vh;
+    border: solid 1px black;
+}
+
+.account{
+    display: flex;
+    border: solid;
+    justify-content: center;
+    align-items: center;
+}
+
+.account-picture{
+    width: 50px;
+    height: 50px;
+    border: solid 1px;
+}
+
+#usernameDisplay{
+    padding: 10px;
+}
+
+#usernameMain{
+    font-size: 50px;
+    padding: 20px;
+}
