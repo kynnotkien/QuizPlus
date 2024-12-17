@@ -1,0 +1,43 @@
+/* Thanh điều hướng dính ở dưới */
+#bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Các liên kết trong thanh điều hướng */
+#bottom-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+#bottom-nav ul li {
+    margin: 0 15px;
+}
+
+#bottom-nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    padding: 8px 12px;
+}
+
+#bottom-nav ul li a:hover {
+    background-color: #555;
+    border-radius: 4px;
+}
+
+/* Nội dung chính của trang */
+#content {
+    padding: 20px;
+    margin-bottom: 60px; /* Đảm bảo nội dung không bị che bởi thanh điều hướng */
+}

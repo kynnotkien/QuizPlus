@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Flashcard Sets</title>
+</head>
+<body>
+    <h1>Manage Flashcard Sets</h1>
+
+    <!-- Form to create a new Flashcard Set -->
+    <div>
+        <h2>Create New Flashcard Set</h2>
+        <form id="createFlashcardSetForm">
+            <label for="set-name">Flashcard Set Name:</label>
+            <input type="text" id="set-name" required>
+            <br>
+            <label for="set-description">Description:</label>
+            <input type="text" id="set-description" required>
+            <br>
+            <button type="submit">Create Flashcard Set</button>
+        </form>
+    </div>
+
+    <hr>
+
+    <!-- List of Flashcard Sets -->
+    <h2>Your Flashcard Sets</h2>
+    <div id="flashcardSetsList"></div>
+
+    <script type="module" src="script/manage-flashcard-sets.js"></script>
+</body>
+</html>

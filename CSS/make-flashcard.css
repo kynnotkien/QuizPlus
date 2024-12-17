@@ -1,0 +1,52 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+#content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+form input, form textarea {
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 16px;
+}
+
+form button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #45a049;
+}
+
+#flashcards-container {
+    margin-bottom: 20px;
+}
+
+.flashcard-entry {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.flashcard-entry input {
+    margin-right: 10px;
+}
+
+#flashcard-creation-status {
+    margin-top: 20px;
+    font-weight: bold;
+}

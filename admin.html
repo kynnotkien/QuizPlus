@@ -7,14 +7,14 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="control-panel">
+    <div class="control-panel" id="control-panel">
         <div class="account">
             <div class="account-picture"></div>
             <h1 id="usernameDisplay"></h1>
         </div>
         <a href="login.html">login</a>
         <a href="signup.html">register</a>
-        <a href="#" onclick="logout()">logout</a>
+        <button id="logoutButton">Logout</button>
     </div>
     <section>
         <div class="main-info">
@@ -34,6 +34,7 @@
             <table class="user-manager" id="user-manager"></table>
         </div>
     </section>
+    <script type="module" src="script/account-status.js"></script>
     <script type="module" src="script/admin.js"></script>  
 </body>
 </html>

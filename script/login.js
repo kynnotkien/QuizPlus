@@ -1,7 +1,7 @@
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-import { checkUserLoginAndRole } from "/script/account-status.js";  // Import custom utility
+import { checkUserLoginAndRole } from "/script/account-status.js";
 
 // Firebase configuration object
 const firebaseConfig = {

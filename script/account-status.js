@@ -20,7 +20,7 @@ async function getUserRole(uid) {
 }
 
 // Check user login and role
-function checkUserLoginAndRole() {
+async function checkUserLoginAndRole() {
     const auth = getAuth();
     onAuthStateChanged(auth, user => {
         if (user) {
@@ -30,15 +30,15 @@ function checkUserLoginAndRole() {
                     console.log(role);
                     if (role === "admin") {
                         if (window.location.pathname == "/login" || window.location.pathname == "/signup") {
-                            window.location.href = "admin-dashboard.html";
+                            window.location.href = "admin.html";
                         }
                     } else if (role === "user") {
                         if (window.location.pathname == "/login.html" || window.location.pathname == "/signup.html") {
-                            window.location.href = "dashboard.html";
+                            window.location.href = "user.html";
                         }
                         if (window.location.pathname == "/admin-dashboard.html") {
                             console.log('Redirecting user from admin page...');
-                            window.location.href = "dashboard.html";
+                            window.location.href = "user.html";
                         }
                     }
                 })
@@ -55,7 +55,8 @@ function checkUserLoginAndRole() {
 }
 
 // Logout function
-function logout() {
+async function logout() {
+    console.log('clicked')
     const auth = getAuth();
     signOut(auth).then(() => {
         console.log("User logged out");
@@ -66,7 +67,7 @@ function logout() {
 }
 
 // Get logged-in username
-function getLoggedInUsername() {
+async function getLoggedInUsername() {
     console.log('vo')
     const auth = getAuth();
     onAuthStateChanged(auth, user => {
@@ -92,5 +93,7 @@ function getLoggedInUsername() {
         }
     });
 }
+
+
 
 export { checkUserLoginAndRole, logout, getLoggedInUsername };

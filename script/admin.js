@@ -2,7 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
-
+import { logout } from "./account-status.js";
 // Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyBedrz5bHO59W0f4TXiXrbRsrFRKUfQj3c",
@@ -147,15 +147,8 @@ async function displayUsers() {
     }
 }
 
-// Log out the user
-function logout() {
-    signOut(auth).then(() => {
-        window.location.href = "login.html";
-    }).catch((error) => {
-        console.error("Error logging out:", error);
-    });
-}
 
 // Event listeners
 document.addEventListener("DOMContentLoaded", checkUserLoginAndRole);
 document.getElementById("addUserForm").addEventListener("submit", addUser);
+document.getElementById("logoutButton").addEventListener("click", logout);
