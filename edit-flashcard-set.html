@@ -4,41 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Flashcard Set</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Edit Flashcard Set</h1>
+    <div id="flashcard-set-container">
+        <h2>Edit Flashcard Set</h2>
 
-    <div>
-        <h2>Edit Set Information</h2>
+        <!-- Flashcard set edit form -->
         <form id="editFlashcardSetForm">
-            <label for="set-name">Flashcard Set Name:</label>
-            <input type="text" id="set-name" required>
-            <br>
-            <label for="set-description">Description:</label>
-            <input type="text" id="set-description" required>
-            <br>
+            <label for="edit-set-name">Set Name:</label>
+            <input type="text" id="edit-set-name" required>
+
+            <label for="edit-set-description">Description:</label>
+            <textarea id="edit-set-description" required></textarea>
+
             <button type="submit">Save Changes</button>
         </form>
+
+        <!-- Flashcard management -->
+        <h3>Manage Flashcards</h3>
+        <div id="flashcardsList"></div>
+        <button id="addFlashcardBtn">Add Flashcard</button>
+
+        <div id="loading" style="display: none;">Loading...</div>
     </div>
-
-    <hr>
-
-    <!-- Section to display existing flashcards -->
-    <h2>Your Flashcards</h2>
-    <div id="flashcardsList"></div>
-
-    <!-- Section to add a new flashcard -->
-    <h3>Add New Flashcard</h3>
-    <form id="addFlashcardForm">
-        <label for="question">Question:</label>
-        <input type="text" id="question" required>
-        <br>
-        <label for="answer">Answer:</label>
-        <input type="text" id="answer" required>
-        <br>
-        <button type="submit">Add Flashcard</button>
-    </form>
-
     <script type="module" src="script/edit-flashcard-set.js"></script>
 </body>
 </html>

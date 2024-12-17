@@ -103,11 +103,13 @@ function deleteFlashcardSet(flashcardSetId) {
     });
 }
 
-// Edit flashcard set: Redirects to editing page (Add flashcard logic will go here)
+// Edit flashcard set: Just log the flashcard set ID to the console
 document.getElementById('flashcardSetsList').addEventListener('click', function(event) {
     if (event.target && event.target.classList.contains('edit-btn')) {
         const flashcardSetId = event.target.getAttribute('data-id');
-        window.location.href = `edit-flashcard-set.html?id=${flashcardSetId}`;
+        console.log("Editing flashcard set with ID:", flashcardSetId);
+        localStorage.setItem('flashcardSetId', flashcardSetId); // Store ID in local storage
+        window.location.href = 'edit-flashcard-set.html'; // Navigate to the edit page
     }
 
     if (event.target && event.target.classList.contains('delete-btn')) {
@@ -115,3 +117,4 @@ document.getElementById('flashcardSetsList').addEventListener('click', function(
         deleteFlashcardSet(flashcardSetId);
     }
 });
+

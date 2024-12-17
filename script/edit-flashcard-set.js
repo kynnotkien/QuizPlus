@@ -1,8 +1,8 @@
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
-import { getDatabase, ref, get, set, remove, child } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+import { getDatabase, ref, get, set, push, remove, child } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
 
-// Firebase config
+// Firebase config (same as before)
 const firebaseConfig = {
     apiKey: "AIzaSyBedrz5bHO59W0f4TXiXrbRsrFRKUfQj3c",
     authDomain: "flashquiz-6c799.firebaseapp.com",
@@ -19,141 +19,160 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getDatabase(app);
 
-// Get flashcard set ID from URL
-const urlParams = new URLSearchParams(window.location.search);
-const flashcardSetId = urlParams.get('id');
+// Get the flashcard set ID from local storage
+const flashcardSetId = localStorage.getItem('flashcardSetId');
 
-// Check user authentication
+if (!flashcardSetId) {
+    alert('No flashcard set ID found in local storage!');
+    window.location.href = 'index.html'; // Redirect to home or another page
+}
+
+let currentUser = null;
+
+// Check if user is logged in
 onAuthStateChanged(auth, (user) => {
     if (user) {
-        fetchFlashcardSet(user.uid, flashcardSetId);
+        currentUser = user;
+        loadFlashcardSet(flashcardSetId);
     } else {
-        alert("You must be logged in to edit flashcard sets.");
-        window.location.href = "login.html";
+        alert('You must be logged in to edit flashcard sets.');
+        window.location.href = 'login.html'; // Redirect to login page
     }
 });
 
-// Fetch flashcard set details
-function fetchFlashcardSet(userId, flashcardSetId) {
-    const flashcardSetRef = ref(database, `users/${userId}/flashcard-sets/${flashcardSetId}`);
+// Load the flashcard set and flashcards data from Firebase
+function loadFlashcardSet(flashcardSetId) {
+    const flashcardSetRef = ref(database, `users/${currentUser.uid}/flashcard-sets/${flashcardSetId}`);
+
     get(flashcardSetRef).then((snapshot) => {
         if (snapshot.exists()) {
-            const { name, description, flashcards } = snapshot.val();
-            
-            // Set existing data in the form
-            document.getElementById('set-name').value = name;
-            document.getElementById('set-description').value = description;
-
-            // Display flashcards
-            displayFlashcards(flashcards, flashcardSetId, userId);
+            const data = snapshot.val();
+            document.getElementById('edit-set-name').value = data.name;
+            document.getElementById('edit-set-description').value = data.description;
+            loadFlashcards(data.flashcards);
         } else {
-            alert("Flashcard set not found.");
-            window.location.href = "manage-flashcard-sets.html";
+            alert('Flashcard set not found.');
+            window.location.href = 'index.html';
         }
     }).catch((error) => {
-        console.error("Error fetching flashcard set:", error);
+        console.error('Error loading flashcard set:', error);
     });
 }
 
-// Display flashcards
-function displayFlashcards(flashcards, flashcardSetId, userId) {
+// Load flashcards into the list
+function loadFlashcards(flashcards) {
     const flashcardsList = document.getElementById('flashcardsList');
-    flashcardsList.innerHTML = ''; // Clear current list
+    flashcardsList.innerHTML = '';
 
-    if (flashcards) {
-        Object.entries(flashcards).forEach(([flashcardId, flashcard]) => {
+    if (flashcards && Object.keys(flashcards).length > 0) {
+        for (const flashcardId in flashcards) {
+            const flashcard = flashcards[flashcardId];
             const flashcardDiv = document.createElement('div');
             flashcardDiv.classList.add('flashcard');
             flashcardDiv.innerHTML = `
                 <p><strong>Question:</strong> ${flashcard.question}</p>
                 <p><strong>Answer:</strong> ${flashcard.answer}</p>
-                <button class="edit-flashcard-btn" data-flashcard-id="${flashcardId}">Edit</button>
-                <button class="delete-flashcard-btn" data-flashcard-id="${flashcardId}">Delete</button>
+                <button class="edit-flashcard-btn" data-id="${flashcardId}">Edit</button>
+                <button class="delete-flashcard-btn" data-id="${flashcardId}">Delete</button>
                 <hr>
             `;
             flashcardsList.appendChild(flashcardDiv);
-        });
-    } else {
-        flashcardsList.innerHTML = "<p>No flashcards found.</p>";
-    }
-
-    // Add event listeners for edit and delete buttons
-    flashcardsList.addEventListener('click', (event) => {
-        if (event.target && event.target.classList.contains('delete-flashcard-btn')) {
-            const flashcardId = event.target.getAttribute('data-flashcard-id');
-            deleteFlashcard(userId, flashcardSetId, flashcardId);
         }
-    });
+    } else {
+        flashcardsList.innerHTML = '<p>No flashcards found.</p>';
+    }
 }
 
-// Edit Flashcard
-function editFlashcard(userId, flashcardSetId, flashcardId, newQuestion, newAnswer) {
-    const flashcardRef = ref(database, `users/${userId}/flashcard-sets/${flashcardSetId}/flashcards/${flashcardId}`);
-    set(flashcardRef, {
-        question: newQuestion,
-        answer: newAnswer
-    }).then(() => {
-        alert("Flashcard updated successfully.");
-        fetchFlashcardSet(userId, flashcardSetId);
-    }).catch((error) => {
-        console.error("Error updating flashcard:", error);
-    });
-}
+// Save changes to flashcard set (name and description)
+document.getElementById('editFlashcardSetForm').addEventListener('submit', (e) => {
+    e.preventDefault();
 
-// Delete Flashcard
-function deleteFlashcard(userId, flashcardSetId, flashcardId) {
-    const flashcardRef = ref(database, `users/${userId}/flashcard-sets/${flashcardSetId}/flashcards/${flashcardId}`);
-    remove(flashcardRef).then(() => {
-        alert("Flashcard deleted successfully.");
-        fetchFlashcardSet(userId, flashcardSetId); // Refresh the flashcards list
-    }).catch((error) => {
-        console.error("Error deleting flashcard:", error);
-    });
-}
+    const setName = document.getElementById('edit-set-name').value;
+    const setDescription = document.getElementById('edit-set-description').value;
 
-// Add New Flashcard
-document.getElementById('addFlashcardForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const question = document.getElementById('question').value;
-    const answer = document.getElementById('answer').value;
-
-    if (!question || !answer) {
-        alert("Please fill out both the question and answer fields.");
+    if (!setName || !setDescription) {
+        alert('Please fill out all fields.');
         return;
     }
 
-    const userId = auth.currentUser.uid;
-    const flashcardRef = ref(database, `users/${userId}/flashcard-sets/${flashcardSetId}/flashcards/${Date.now()}`);
-    
-    set(flashcardRef, {
-        question: question,
-        answer: answer
+    const flashcardSetRef = ref(database, `users/${currentUser.uid}/flashcard-sets/${flashcardSetId}`);
+
+    set(flashcardSetRef, {
+        name: setName,
+        description: setDescription,
+        flashcards: {} // Keep existing flashcards intact
     }).then(() => {
-        alert("Flashcard added successfully.");
-        fetchFlashcardSet(userId, flashcardSetId); // Refresh the flashcards list
+        alert('Flashcard set updated successfully!');
     }).catch((error) => {
-        console.error("Error adding flashcard:", error);
+        console.error('Error updating flashcard set:', error);
+        alert('Error updating flashcard set.');
     });
 });
 
-// Edit Flashcard Set Information
-document.getElementById('editFlashcardSetForm').addEventListener('submit', function(event) {
-    event.preventDefault();
+// Add a new flashcard
+document.getElementById('addFlashcardBtn').addEventListener('click', () => {
+    const question = prompt('Enter the flashcard question:');
+    const answer = prompt('Enter the flashcard answer:');
 
-    const newName = document.getElementById('set-name').value;
-    const newDescription = document.getElementById('set-description').value;
+    if (!question || !answer) {
+        alert('Both question and answer are required.');
+        return;
+    }
 
-    const userId = auth.currentUser.uid;
-    const flashcardSetRef = ref(database, `users/${userId}/flashcard-sets/${flashcardSetId}`);
-    
-    set(flashcardSetRef, {
-        name: newName,
-        description: newDescription,
-        flashcards: {} // Do not modify existing flashcards
-    }).then(() => {
-        alert("Flashcard set updated successfully.");
+    const flashcardsRef = ref(database, `users/${currentUser.uid}/flashcard-sets/${flashcardSetId}/flashcards`);
+    const newFlashcardRef = push(flashcardsRef);
+
+    set(newFlashcardRef, { question, answer }).then(() => {
+        alert('Flashcard added!');
+        loadFlashcardSet(flashcardSetId); // Reload flashcards
     }).catch((error) => {
-        console.error("Error updating flashcard set:", error);
+        console.error('Error adding flashcard:', error);
+        alert('Error adding flashcard.');
     });
+});
+
+// Delete a flashcard
+document.getElementById('flashcardsList').addEventListener('click', (e) => {
+    if (e.target && e.target.classList.contains('delete-flashcard-btn')) {
+        const flashcardId = e.target.getAttribute('data-id');
+        const flashcardRef = ref(database, `users/${currentUser.uid}/flashcard-sets/${flashcardSetId}/flashcards/${flashcardId}`);
+
+        if (confirm('Are you sure you want to delete this flashcard?')) {
+            remove(flashcardRef).then(() => {
+                alert('Flashcard deleted.');
+                loadFlashcardSet(flashcardSetId); // Reload flashcards
+            }).catch((error) => {
+                console.error('Error deleting flashcard:', error);
+                alert('Error deleting flashcard.');
+            });
+        }
+    }
+});
+
+// Edit flashcard (you can create a form for editing flashcards if needed)
+document.getElementById('flashcardsList').addEventListener('click', (e) => {
+    if (e.target && e.target.classList.contains('edit-flashcard-btn')) {
+        const flashcardId = e.target.getAttribute('data-id');
+        const flashcardRef = ref(database, `users/${currentUser.uid}/flashcard-sets/${flashcardSetId}/flashcards/${flashcardId}`);
+
+        get(flashcardRef).then((snapshot) => {
+            if (snapshot.exists()) {
+                const flashcard = snapshot.val();
+                const newQuestion = prompt('Edit Question:', flashcard.question);
+                const newAnswer = prompt('Edit Answer:', flashcard.answer);
+
+                if (newQuestion !== null && newAnswer !== null) {
+                    set(flashcardRef, { question: newQuestion, answer: newAnswer }).then(() => {
+                        alert('Flashcard updated!');
+                        loadFlashcardSet(flashcardSetId); // Reload flashcards
+                    }).catch((error) => {
+                        console.error('Error updating flashcard:', error);
+                        alert('Error updating flashcard.');
+                    });
+                }
+            }
+        }).catch((error) => {
+            console.error('Error fetching flashcard:', error);
+        });
+    }
 });
