@@ -1,43 +1,114 @@
-/* Thanh điều hướng dính ở dưới */
-#bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 10px 0;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+:root{
+    --light-purple: #CDB4DB;
+    --light-pink: #FFC8DD;
+    --pink: #FFAFCC;
+    --sky: #A2D2FF;
 }
 
-/* Các liên kết trong thanh điều hướng */
-#bottom-nav ul {
-    list-style: none;
+*{
     margin: 0;
     padding: 0;
-    display: flex;
+    box-sizing: border-box;
+    
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(180deg, var(--light-purple) 100%, var(--purple) 0%);
+}
+
+.main{
+    max-width: 50%;
+    margin: auto;
+    background-color: #FFC8DD;
+    border: solid 1px black;
+    border-radius: 10px;
+    box-shadow: white 0 0 10px;
+}
+
+.flashcard-set{
+    background-color: #f1f1f1;
+    padding: 20px;
+    border-radius: 5px;
+    margin: 10px 0;
+    border: solid 1px black;
+    margin: 10px 0;
+}
+
+.mt-4{
+    color: black;
+}
+
+.navbar{
+    background-color: #FFC8DD;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px 0;
     justify-content: space-between;
 }
 
-#bottom-nav ul li {
-    margin: 0 15px;
+.study-btn{
+    background-color: #FFAFCC;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
 }
-
-#bottom-nav ul li a {
-    text-decoration: none;
-    color: white;
-    font-size: 16px;
-    padding: 8px 12px;
-}
-
-#bottom-nav ul li a:hover {
-    background-color: #555;
-    border-radius: 4px;
-}
-
-/* Nội dung chính của trang */
-#content {
+#addFlashcardForm {
+    background-color: var(--sky);
     padding: 20px;
-    margin-bottom: 60px; /* Đảm bảo nội dung không bị che bởi thanh điều hướng */
+    border-radius: 5px;
+    margin: 10px 0;
+    border: solid 1px black;
+}
+
+#addFlashcardForm input{
+    margin: 10px 0;
+}
+
+@media (max-width: 1200px) {
+    .main {
+        max-width: 70%;
+    }
+}
+
+@media (max-width: 800px) {
+    .main {
+        max-width: 85%;
+    }
+
+    .study-btn {
+        padding: 15px 0;
+    }
+
+    #addFlashcardForm {
+        padding: 15px;
+    }
+    
+    .flashcard-set {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .main {
+        max-width: 100%;
+        margin: 10px;
+    }
+
+    .study-btn {
+        padding: 12px 0;
+    }
+
+    #addFlashcardForm input {
+        width: 100%;
+    }
+
+    .flashcard-set {
+        padding: 10px;
+    }
 }

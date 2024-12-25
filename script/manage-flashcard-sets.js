@@ -44,12 +44,12 @@ function fetchFlashcardSets(userId) {
                 const flashcardSetDiv = document.createElement('div');
                 flashcardSetDiv.classList.add('flashcard-set');
                 flashcardSetDiv.innerHTML = `
-                    <h3>${name}</h3>
-                    <p>${description}</p>
-                    <button class="edit-btn" data-id="${flashcardSetId}">Edit</button>
-                    <button class="delete-btn" data-id="${flashcardSetId}">Delete</button>
-                    <hr>
-                `;
+                    <h5 class="card-title">${name}</h5>
+                    <p class="card-text">${description}</p>
+                    <button class="btn btn-success study-btn " data-id="${flashcardSetId}">Study</button>
+                    <button class="btn btn-primary edit-btn" data-id="${flashcardSetId}">Edit</button>
+                    <button class="btn btn-danger delete-btn" data-id="${flashcardSetId}">Delete</button>
+                    `;
                 flashcardSetsList.appendChild(flashcardSetDiv);
             });
         } else {
@@ -115,6 +115,15 @@ document.getElementById('flashcardSetsList').addEventListener('click', function(
     if (event.target && event.target.classList.contains('delete-btn')) {
         const flashcardSetId = event.target.getAttribute('data-id');
         deleteFlashcardSet(flashcardSetId);
+    }
+});
+
+document.getElementById('flashcardSetsList').addEventListener('click', function(event) {
+    if (event.target && event.target.classList.contains('study-btn')) {
+        const flashcardSetId = event.target.getAttribute('data-id');
+        console.log("Studying flashcard set with ID:", flashcardSetId);
+        localStorage.setItem('flashcardSetId', flashcardSetId); // Store ID in local storage
+        window.location.href = 'study-flashcard.html'; // Navigate to the study page
     }
 });
 

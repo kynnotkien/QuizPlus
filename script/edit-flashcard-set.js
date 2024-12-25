@@ -68,13 +68,12 @@ function loadFlashcards(flashcards) {
         for (const flashcardId in flashcards) {
             const flashcard = flashcards[flashcardId];
             const flashcardDiv = document.createElement('div');
-            flashcardDiv.classList.add('flashcard');
+            flashcardDiv.classList.add('flashcard-set');
             flashcardDiv.innerHTML = `
-                <p><strong>Question:</strong> ${flashcard.question}</p>
-                <p><strong>Answer:</strong> ${flashcard.answer}</p>
-                <button class="edit-flashcard-btn" data-id="${flashcardId}">Edit</button>
-                <button class="delete-flashcard-btn" data-id="${flashcardId}">Delete</button>
-                <hr>
+                <p class="card-title"><strong>Question:</strong> ${flashcard.question}</p>
+                <p class="card-text"><strong>Answer:</strong> ${flashcard.answer}</p>
+                <button class="btn btn-primary edit-btn edit-flashcard-btn" data-id="${flashcardId}">Edit</button>
+                <button class="btn btn-danger delete-btn delete-flashcard-btn" data-id="${flashcardId}">Delete</button>
             `;
             flashcardsList.appendChild(flashcardDiv);
         }
@@ -97,22 +96,25 @@ document.getElementById('editFlashcardSetForm').addEventListener('submit', (e) =
 
     const flashcardSetRef = ref(database, `users/${currentUser.uid}/flashcard-sets/${flashcardSetId}`);
 
-    set(flashcardSetRef, {
-        name: setName,
-        description: setDescription,
-        flashcards: {} // Keep existing flashcards intact
-    }).then(() => {
-        alert('Flashcard set updated successfully!');
-    }).catch((error) => {
-        console.error('Error updating flashcard set:', error);
-        alert('Error updating flashcard set.');
+    get(flashcardSetRef).then((snapshot) => {
+        const existingData = snapshot.val() || {};
+        set(flashcardSetRef, {
+            name: setName,
+            description: setDescription,
+            flashcards: existingData.flashcards || {} // Keep existing flashcards intact
+        }).then(() => {
+            alert('Flashcard set updated successfully!');
+        }).catch((error) => {
+            console.error('Error updating flashcard set:', error);
+            alert('Error updating flashcard set.');
+        });
     });
 });
 
 // Add a new flashcard
 document.getElementById('addFlashcardBtn').addEventListener('click', () => {
-    const question = prompt('Enter the flashcard question:');
-    const answer = prompt('Enter the flashcard answer:');
+    const question = document.getElementById('add-question').value; 
+    const answer = document.getElementById('add-answer').value;
 
     if (!question || !answer) {
         alert('Both question and answer are required.');

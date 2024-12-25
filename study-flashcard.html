@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Flashcard Set</title>
-    <link rel="stylesheet" href="CSS/user.css">
+    <link rel="stylesheet" href="CSS/study-flashcard.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/responsive.css">
+    <title>Study Flashcards</title>
 </head>
 <body>
     <section class="main">
@@ -28,37 +29,34 @@
             </ul>
             </div>
         </nav>
-        <div id="flashcard-set-container" class="container mt-5">
-            <h2 class="text-center mb-4">Edit Flashcard Set</h2>
-        
-            <!-- Flashcard set edit form -->
-            <form id="editFlashcardSetForm" class="mb-4">
-            <div class="form-group">
-                <label for="edit-set-name">Set Name:</label>
-                <input type="text" id="edit-set-name" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="edit-set-description">Description:</label>
-                <textarea id="edit-set-description" class="form-control" rows="3" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Save Changes</button>
-            </form>
-        
-            <!-- Flashcard management -->
-            <form id="addFlashcardForm" class="mb-4">
-                <h3 class="mb-3">Add Flashcards</h3>
-                <div class="form-group">
-                    <input type="text" id="add-question" class="form-control" placeholder="Question" required>
-                    <input type="text" id="add-answer" class="form-control" placeholder="Answer" required>
-                </div>
-                <button id="addFlashcardBtn" type="button" class="btn btn-secondary mb-3">Add Flashcard</button>
-            </form>
-            <div id="flashcardsList" class="mb-3"></div>
+        <div id="flashcard-info" class="text-center my-4">
+            <h2>Flashcard Information</h2>
         </div>
+        <div id="study-zone" class="text-center my-3">
+            <div class="flashcard-container" id="flashcard-container"></div>
+            <div class="flashcard-nav heart">
+                <button>
+                    <img src="assets/heart.png" alt="">
+                </button>
+                <button id="prev-btn" class="">
+                    <img src="assets/north.png" alt="">
+                </button>
+                <button id="next-btn" class="">
+                    <img src="assets/south.png" alt="">
+                </button>
+                <button>
+                    <img src="assets/bookmark.png" alt="">
+                </button>
+            </div>
+        </div>
+        
+        
+        
     </section>
+
+    <script type="module" src="script/study-flashcard.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script type="module" src="script/edit-flashcard-set.js"></script>
 </body>
 </html>
