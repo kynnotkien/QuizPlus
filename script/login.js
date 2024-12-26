@@ -37,13 +37,13 @@ if (loginForm) {
         try {
             // Sign in the user with Firebase Authentication
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            console.log("Login successful:", userCredential.user);
+            console.log("Login successful:", userCredential.username);
             // Optionally, redirect to a dashboard or other page
-            alert('welcome back!' + userCredential.user)// Redirect after successful login
+            alert('welcome back! ' + userCredential.username)// Redirect after successful login
             checkUserLoginAndRole()
         } catch (error) {
-            console.error("Error logging in:", error);
-            alert("Login failed: " + error.message);
+            const wrongInfo = document.getElementById('wrongInfo')
+            wrongInfo.style.display = 'flex'
         }
     });
 }

@@ -1,124 +1,102 @@
-*{
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f7fb;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
-body{
-    font-family: Arial, Helvetica, sans-serif;
-    display: flex;
+/* Navbar Styles */
+.navbar {
+    background-color: #3498db;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-section{
-    display: block;
-    width: 80%;
+.navbar .navbar-brand {
+    font-weight: 700;
+    color: black;
 }
 
-.main {
-    width: 95%;
-    display: block;
-    border: solid black 1px;
-    margin: auto;
-}
-
-.main-info {
-    width: 95%;
-    display: block;
-    border: solid black 1px;
-    margin: auto;
-}
-
-.form-container {
-    display: flex;
-}
-
-.form-container input {
-    margin: 10px 10px 10px 0px;
-    height: 30px;
-}
-
-#username {
-    width: 150px;
-}
-
-#email {
-    width: 200px;
-}
-
-#role {
-    width: 50px;
-    height: 30px;
-    margin: 10px 10px 10px 0px;
-}
-
-.form-container button {
-    height: 30px;
-    width: 100px;
-    margin: 10px 10px 10px 0px;
-}
-
-.user-manager {
-    font-family: Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-.user-manager td, .user-manager th {
-    border: 1px solid #ddd;
-    padding: 8px;
-  }
-  
-.user-manager tr:nth-child(even){background-color: #f2f2f2;}
-  
-.user-manager tr:hover {background-color: #ddd;}
-  
-.user-manager th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #04AA6D;
+.navbar .nav-link {
     color: white;
-  }
+    font-size: 16px;
+    padding: 10px 15px;
+}
 
-#role-edit{
-    margin: auto;
+.navbar .nav-link:hover {
+    color: #dfe6e9;
+}
+
+.navbar .btn-outline-danger {
+    color: white;
+    border-color: white;
+    font-weight: 600;
+}
+
+.navbar .navbar-toggler-icon {
+    background-color: white;
+}
+
+.navbar-text {
+    font-weight: bold;
+    color: white;
+}
+
+/* Main Content Styles */
+#page-content-wrapper {
+    margin-top: 20px;
+    padding: 30px;
+    background-color: #ffffff;
+}
+
+/* User Management Section */
+.user-management {
     width: 100%;
-    height: 50px;
-    font-size: 15px;
-}
-
-.edit-user{
-    margin: auto;
-    width: 100%;
-    height: 50px;
-    font-size: 15px;
-}
-
-.control-panel{
-    position: sticky;
-    width: 20%;
-    height: 100vh;
-    border: solid 1px black;
-}
-
-.account{
-    display: flex;
-    border: solid;
-    justify-content: center;
-    align-items: center;
-}
-
-.account-picture{
-    width: 50px;
-    height: 50px;
-    border: solid 1px;
-}
-
-#usernameDisplay{
-    padding: 10px;
-}
-
-#usernameMain{
-    font-size: 50px;
     padding: 20px;
+    background-color: #ecf0f1;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.user-management h2 {
+    font-size: 28px;
+    color: #34495e;
+    margin-bottom: 20px;
+}
+
+/* Table Styles */
+.table th, .table td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 15px;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.table thead {
+    background-color: #3498db;
+    color: white;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar .navbar-nav {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    #page-content-wrapper {
+        padding: 15px;
+    }
+
+    .user-management {
+        padding: 15px;
+    }
 }

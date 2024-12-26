@@ -1,8 +1,9 @@
 // Import necessary Firebase modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-import { getAuth, onAuthStateChanged, signOut, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
-import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
 import { logout } from "./account-status.js";
+
 // Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyBedrz5bHO59W0f4TXiXrbRsrFRKUfQj3c",
@@ -19,55 +20,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getDatabase(app);
-
-// Add user function
-// Add user function without logging them in
-async function addUser(event) {
-    event.preventDefault(); 
-  
-    const username = document.getElementById("username").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    const role = document.getElementById("role").value;
-  
-    // Basic validation
-    if (!username || !email || !password || !role) {
-      return alert("Please fill out all fields.");
-    }
-  
-    try {
-      // Create the user with email and password (this won't log the user in)
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password); 
-      console.log('User created successfully', userCredential.user);
-  
-      // Get the new user's ID (UID)
-      const userId = userCredential.user.uid;
-  
-      // Store the user's data in Firebase Realtime Database
-      await set(ref(database, `users/${userId}`), {
-        username,
-        email,
-        role,
-        createdAt: new Date().toISOString(),
-      });
-  
-      // Sign the user out immediately after creation
-      await signOut(auth); 
-  
-      // Notify the admin that the user has been added
-      alert("User added successfully! The new user is not logged in.");
-  
-      // Debugging output
-      console.log("User data has been saved in Realtime Database for UID:", userId);
-  
-    } catch (error) {
-      // Handle any errors
-      console.error("Error creating or saving user:", error);
-      alert("Error creating user. Please try again.");
-    }
-  }
-
-
 
 // Check if the user is logged in and has admin role
 async function checkUserLoginAndRole() {
@@ -109,19 +61,10 @@ async function getLoggedInUsername() {
 
 // Display all users
 async function displayUsers() {
-    const userManagerTable = document.querySelector(".user-manager");
+    const userManagerTable = document.querySelector("#user-manager tbody");
     if (!userManagerTable) return;
 
-    userManagerTable.innerHTML = `
-        <tr>
-            <th>ID</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Create Date</th>
-            <th>Actions</th>
-        </tr>
-    `;
+    userManagerTable.innerHTML = ``;
 
     try {
         const snapshot = await get(ref(database, "users"));
@@ -135,12 +78,12 @@ async function displayUsers() {
                         <td>${email}</td>
                         <td>${role}</td>
                         <td>${createdAt}</td>
-                        <td><button class="edit-user">Edit</button></td>
+                        <td><button class="btn btn-warning btn-sm">Edit</button></td>
                     </tr>
                 `;
             });
         } else {
-            userManagerTable.innerHTML += `<tr><td colspan="6">No users available.</td></tr>`;
+            userManagerTable.innerHTML += `<tr><td colspan="6" class="text-center">No users available.</td></tr>`;
         }
     } catch (error) {
         console.error("Error retrieving users:", error);
@@ -148,7 +91,7 @@ async function displayUsers() {
 }
 
 
+
 // Event listeners
 document.addEventListener("DOMContentLoaded", checkUserLoginAndRole);
-document.getElementById("addUserForm").addEventListener("submit", addUser);
 document.getElementById("logoutButton").addEventListener("click", logout);

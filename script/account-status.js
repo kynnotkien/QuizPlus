@@ -29,7 +29,7 @@ async function checkUserLoginAndRole() {
                 .then(role => {
                     console.log(role);
                     if (role === "admin") {
-                        if (window.location.pathname == "/login" || window.location.pathname == "/signup") {
+                        if (window.location.pathname == "/login.html" || window.location.pathname == "/signup.html") {
                             window.location.href = "admin.html";
                         }
                     } else if (role === "user") {

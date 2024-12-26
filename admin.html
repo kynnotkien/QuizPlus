@@ -3,37 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="CSS/admin.css">
-    <title>Document</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <div class="control-panel" id="control-panel">
-        <div class="account">
-            <div class="account-picture"></div>
-            <h1 id="usernameDisplay"></h1>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">QuizPlus</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+            <span class="navbar-text" id="usernameDisplay"></span>
+            <a class="btn btn-danger" id="logoutButton" href="#">Logout</a>
         </div>
-        <a href="login.html">login</a>
-        <a href="signup.html">register</a>
-        <button id="logoutButton">Logout</button>
+    </nav>
+
+    <!-- Main Content -->
+    <div id="page-content-wrapper" class="container-fluid">
+        <div class="header text-center mb-4">
+            <h1 id="usernameMain">Admin Panel</h1>
+        </div>
+
+        <div class="user-management">
+            <h2>User Management</h2>
+            <div class="table-responsive">
+                <table class="table table-hover table-striped" id="user-manager">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Create Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- User data will be inserted here dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    <section>
-        <div class="main-info">
-            <h1 id="usernameMain"></h1>
-        </div>
-        <div class="main">
-            <form class="form-container" id="addUserForm">
-                <input type="text" id="username" placeholder="Username" required />
-                <input type="email" id="email" placeholder="Email" required />
-                <input type="password" id="password" placeholder="Password" required />
-                <select id="role" required>
-                    <option value="user">User</option>
-                    <option value="admin">Admin</option>
-                </select>
-                <button type="submit">Add User</button>
-            </form>            
-            <table class="user-manager" id="user-manager"></table>
-        </div>
-    </section>
+
+    <!-- Bootstrap 5 JS and Custom Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script type="module" src="script/account-status.js"></script>
     <script type="module" src="script/admin.js"></script>  
 </body>
