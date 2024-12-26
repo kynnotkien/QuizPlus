@@ -1,12 +1,14 @@
-:root{
-    --light-purple: #CDB4DB;
-    --light-pink: #FFC8DD;
-    --pink: #FFAFCC;
-    --sky: #A2D2FF;
-    --sage:  #d0e5b9;
+:root {
+    --background: #F5F5F5;
+    --primary: #3F72AF; 
+    --secondary: #FF6F61; 
+    --cta: #3A527F; 
+    --accent: #DBE2EF; 
+    --sage: #A2D2FF; 
+    --light-sage: #D0E5B9; 
 }
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -18,19 +20,23 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
-    background: linear-gradient(180deg, var(--light-purple) 100%, var(--purple) 0%);
+    background: linear-gradient(180deg, var(--background) 60%, var(--background) 100%);
 }
 
 .main {
     width: 100%;
     max-width: 50%;
     padding: 20px;
-    background-color: #FFC8DD;
+    background-color: var(--accent); /* Xanh pastel nhẹ */
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     display: block;
     flex-wrap: wrap;
     gap: 20px;
+}
+
+.navbar {
+    border-radius: 5px;
 }
 
 #study-zone {
@@ -45,19 +51,19 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%; /* Đảm bảo chiếm toàn bộ chiều rộng */
+    width: 100%;
     gap: 20px;
-    position: relative; /* Cần để làm nền cho thanh điều hướng */
+    position: relative;
 }
 
 .flashcard {
     position: relative;
-    width: 95%; /* Kích thước flashcard */
+    width: 95%;
     height: 500px;
     transform-style: preserve-3d;
     transition: transform 0.5s;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     cursor: pointer;
 }
 
@@ -70,24 +76,24 @@ body {
 }
 
 .front {
-    background-color: var(--sky);
+    background-color: var(--sage);
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 24px;
     font-weight: bold;
-    color: #333;
+    color: #112D4E;
 }
 
 .back {
-    background-color: var(--sage);
+    background-color: var(--light-sage); /* Xanh ngọc nhạt */
     transform: rotateY(180deg);
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 24px;
     font-weight: bold;
-    color: #333;
+    color: #112D4E; /* Màu chữ đậm */
 }
 
 .flashcard.flipped {
@@ -95,39 +101,38 @@ body {
 }
 
 .flashcard-nav {
-    position: absolute; /* Đè lên phần bên phải của flashcard */
-    top: 50%; /* Căn chỉnh giữa theo chiều dọc */
-    right: 20px; /* Đẩy thanh điều hướng sát bên phải */
-    transform: translateY(-50%); /* Đảm bảo căn giữa chính xác */
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
     display: flex;
-    flex-direction: column; /* Sắp xếp các nút theo chiều dọc */
+    flex-direction: column;
     align-items: center;
-    gap: 15px; /* Khoảng cách giữa các nút */
-    z-index: 10; /* Ưu tiên hiển thị phía trên flashcard */
+    gap: 15px;
+    z-index: 10;
 }
 
 .flashcard-nav button {
-    width: 50px; /* Kích thước nút điều hướng */
+    width: 50px;
     height: 50px;
     border-radius: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
-    margin-right: 10px;
+    background-color: var(--primary); /* Xanh lam nhạt */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
 }
 
 .flashcard-nav button:hover {
-    background-color: var(--pink, 0.5);
-    transition: 0.3s;
-
+    background-color: var(--cta); /* Xanh đậm hơn */
 }
 
 .flashcard-nav button:active {
-    background-color: var(--light-pink);
+    background-color: var(--secondary); /* Cam sáng */
 }
 
 .flashcard-nav button:disabled {
-    background-color: #ccc;
+    background-color: #E0E0E0; /* Xám nhạt */
     cursor: not-allowed;
 }
 
@@ -135,4 +140,3 @@ body {
     width: 20px;
     height: 20px;
 }
-

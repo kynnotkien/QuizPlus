@@ -52,3 +52,15 @@ onAuthStateChanged(auth, (user) => {
         window.location.href = "login.html";
     }
 });
+
+
+async function logout() {
+    console.log('clicked')
+    const auth = getAuth();
+    signOut(auth).then(() => {
+        console.log("User logged out");
+        window.location.href = "login.html";  // Redirect to login page after logout
+    }).catch((error) => {
+        console.error("Error logging out:", error);
+    });
+}

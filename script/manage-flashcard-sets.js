@@ -46,9 +46,9 @@ function fetchFlashcardSets(userId) {
                 flashcardSetDiv.innerHTML = `
                     <h5 class="card-title">${name}</h5>
                     <p class="card-text">${description}</p>
-                    <button class="btn btn-success study-btn " data-id="${flashcardSetId}">Study</button>
-                    <button class="btn btn-primary edit-btn" data-id="${flashcardSetId}">Edit</button>
-                    <button class="btn btn-danger delete-btn" data-id="${flashcardSetId}">Delete</button>
+                    <button class="study-btn " data-id="${flashcardSetId}">Study</button>
+                    <button class="edit-btn" data-id="${flashcardSetId}">Edit</button>
+                    <button class="delete-btn" data-id="${flashcardSetId}">Delete</button>
                     `;
                 flashcardSetsList.appendChild(flashcardSetDiv);
             });
@@ -97,7 +97,7 @@ function deleteFlashcardSet(flashcardSetId) {
     
     remove(flashcardSetRef).then(() => {
         alert("Flashcard set deleted successfully.");
-        fetchFlashcardSets(userId); // Refresh the list
+        fetchFlashcardSets(userId); //  Refresh the list
     }).catch((error) => {
         console.error("Error deleting flashcard set:", error);
     });
