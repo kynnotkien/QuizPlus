@@ -127,3 +127,15 @@ document.getElementById('flashcardSetsList').addEventListener('click', function(
     }
 });
 
+async function logout() {
+    try {
+        await auth.signOut();
+        alert('You have been logged out.');
+        window.location.href = 'login.html';
+    } catch (error) {
+        console.error('Error logging out:', error);
+        alert('Failed to log out. Please try again.');
+    }
+}
+
+document.getElementById('logout').addEventListener('click', logout);

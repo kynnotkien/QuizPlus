@@ -160,8 +160,35 @@ document.getElementById('flashcardsList').addEventListener('click', (e) => {
         get(flashcardRef).then((snapshot) => {
             if (snapshot.exists()) {
                 const flashcard = snapshot.val();
-                const newQuestion = prompt('Edit Question:', flashcard.question);
-                const newAnswer = prompt('Edit Answer:', flashcard.answer);
+                const editForm = document.createElement('div');
+                editForm.innerHTML = `
+                    <div class="form-group">
+                        <label for="edit-question-${flashcardId}">Edit Question</label>
+                        <input type="text" class="form-control" id="edit-question-${flashcardId}" value="${flashcard.question}" placeholder="Edit Question">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-answer-${flashcardId}">Edit Answer</label>
+                        <input type="text" class="form-control" id="edit-answer-${flashcardId}" value="${flashcard.answer}" placeholder="Edit Answer">
+                    </div>
+                    <button class="btn btn-success mt-2" id="save-edit-${flashcardId}">Save</button>
+                `;
+                e.target.parentElement.appendChild(editForm);
+
+                document.getElementById(`save-edit-${flashcardId}`).addEventListener('click', () => {
+                    const newQuestion = document.getElementById(`edit-question-${flashcardId}`).value;
+                    const newAnswer = document.getElementById(`edit-answer-${flashcardId}`).value;
+
+                    if (newQuestion && newAnswer) {
+                        set(flashcardRef, { question: newQuestion, answer: newAnswer }).then(() => {
+                            loadFlashcardSet(flashcardSetId); // Reload flashcards
+                        }).catch((error) => {
+                            console.error('Error updating flashcard:', error);
+                            alert('Error updating flashcard.');
+                        });
+                    } else {
+                        editForm.innerHTML += '<p class="text-danger mt-2">Please fill out both fields.</p>';
+                    }
+                });
 
                 if (newQuestion !== null && newAnswer !== null) {
                     set(flashcardRef, { question: newQuestion, answer: newAnswer }).then(() => {
@@ -178,3 +205,16 @@ document.getElementById('flashcardsList').addEventListener('click', (e) => {
         });
     }
 });
+
+async function logout() {
+    try {
+        await auth.signOut();
+        alert('You have been logged out.');
+        window.location.href = 'login.html';
+    } catch (error) {
+        console.error('Error logging out:', error);
+        alert('Failed to log out. Please try again.');
+    }
+}
+
+document.getElementById('logout').addEventListener('click', logout);

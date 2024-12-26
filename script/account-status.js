@@ -34,7 +34,7 @@ async function checkUserLoginAndRole() {
                         }
                     } else if (role === "user") {
                         if (window.location.pathname == "/login.html" || window.location.pathname == "/signup.html") {
-                            window.location.href = "user.html";
+                            window.location.href = "manage-flashcard-sets.html";
                         }
                         if (window.location.pathname == "/admin-dashboard.html") {
                             console.log('Redirecting user from admin page...');

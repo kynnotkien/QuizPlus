@@ -3,31 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="CSS/user.css">
     <title>User Info</title>
 </head>
 <body>
-    <header>
-
+    <header class="bg-primary text-white text-center py-3">
+        <h1>User Info</h1>
     </header>
-    <div id="user-info">
-        <div class="user-avatar">
-            <img src="" alt="">
+    <div id="user-info" class="container mt-4">
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <div class="user-avatar">
+                    <img src="" alt="" class="img-fluid rounded-circle">
+                </div>
+            </div>
+            <div class="col-md-8">
+                <p>User ID: <span id="user-id" class="font-weight-bold"></span></p>
+                <p>Username: <span id="user-username" class="font-weight-bold"></span></p>
+                <p>Email: <span id="user-email" class="font-weight-bold"></span></p>
+            </div>
         </div>
-        <p>User ID: <span id="user-id"></span></p>
-        <p>Username: <span id="user-username"></span></p>
-        <p>Email: <span id="user-email"></span></p>
     </div>
-    <div id="bottom-nav">
-        <ul>
-            <li><button>+</button></li>
-            <li><button>+</button></li>
-            <li><button>+</button></li>
+    <div id="bottom-nav" class="fixed-bottom bg-light">
+        <ul class="nav justify-content-around">
+            <li class="nav-item">
+                <button class="btn btn-primary">+</button>
+            </li>
+            <li class="nav-item">
+                <button class="btn btn-primary">+</button>
+            </li>
+            <li class="nav-item">
+                <button class="btn btn-primary">+</button>
+            </li>
         </ul>
     </div>
-    <div id="flashcard-sets">
-        
+    <div id="flashcard-sets" class="container mt-4">
+        <!-- Flashcard sets content -->
     </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script type="module" src="script/user.js"></script>
 </body>
 </html>

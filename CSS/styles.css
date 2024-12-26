@@ -1,0 +1,145 @@
+:root {
+    --background: #F5F5F5;
+    --primary: #3F72AF;
+    --secondary: #FF6F61;
+    --cta: #3A527F;
+    --accent: #DBE2EF;
+    --sage: #A2D2FF;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(180deg, var(--background) 60%, var(--primary) 100%);
+    color: #112D4E;
+}
+
+/* Navbar */
+.navbar {
+    background-color: var(--primary);
+}
+
+.navbar-brand, .nav-link {
+    color: white !important;
+}
+
+/* Hero Section */
+.hero {
+    background-color: var(--accent);
+    padding: 60px 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+}
+
+.hero h1 {
+    color: var(--cta);
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.hero p {
+    color: #333;
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+.hero .btn-primary {
+    background-color: var(--secondary);
+    border: none;
+    transition: transform 0.3s ease-in-out;
+}
+
+.hero .btn-primary:hover {
+    background-color: var(--cta);
+    transform: scale(1.05);
+}
+
+/* Features Section */
+.features .section-title {
+    font-size: 2rem;
+    color: var(--cta);
+}
+
+.feature-card {
+    background-color: var(--sage);
+    border: none;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+}
+
+/* New Section Styles */
+.how-it-works, .testimonials, .faq {
+    background-color: #F9F9F9;
+}
+
+.how-it-works h2, .testimonials h2, .faq h2 {
+    color: var(--cta);
+}
+
+/* Footer */
+footer {
+    background-color: var(--primary);
+    color: white;
+}
+
+/* Animations */
+.animate-fade-in {
+    animation: fadeIn 2s ease-in-out;
+}
+
+.animate-slide-in {
+    animation: slideIn 2s ease-in-out;
+}
+
+.animate-bounce {
+    animation: bounce 1s infinite;
+}
+
+.animate-zoom-in {
+    animation: zoomIn 1.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
