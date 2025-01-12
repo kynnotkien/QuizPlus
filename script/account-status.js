@@ -94,6 +94,4 @@ async function getLoggedInUsername() {
     });
 }
 
-
-
 export { checkUserLoginAndRole, logout, getLoggedInUsername };

@@ -2,7 +2,7 @@ import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/
 import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
 
-// Firebase config (giữ nguyên như trong mã gốc)
+// Firebase config (keep the same as in the original code)
 const firebaseConfig = {
     apiKey: "AIzaSyBedrz5bHO59W0f4TXiXrbRsrFRKUfQj3c",
     authDomain: "flashquiz-6c799.firebaseapp.com",
@@ -19,7 +19,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getDatabase(app);
 
-// Lấy flashcard set ID từ local storage
+// Get flashcard set ID from local storage
 const flashcardSetId = localStorage.getItem('flashcardSetId');
 
 if (!flashcardSetId) {
@@ -28,10 +28,10 @@ if (!flashcardSetId) {
 }
 
 let currentUser = null;
-let flashcardsArray = []; // Mảng chứa tất cả flashcards
-let currentFlashcardIndex = 0; // Chỉ mục flashcard hiện tại
+let flashcardsArray = []; // Array containing all flashcards
+let currentFlashcardIndex = 0; // Current flashcard index
 
-// Kiểm tra trạng thái đăng nhập
+// Check login status
 onAuthStateChanged(auth, (user) => {
     if (user) {
         currentUser = user;
@@ -42,7 +42,7 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
-// Load thông tin bộ flashcard từ Firebase
+// Load flashcard set information from Firebase
 function loadFlashcardSet(flashcardSetId) {
     const flashcardSetRef = ref(database, `users/${currentUser.uid}/flashcard-sets/${flashcardSetId}`);
 
@@ -54,7 +54,7 @@ function loadFlashcardSet(flashcardSetId) {
                     <h2>${data.name}</h2>
                     <p>${data.description}</p>
                 `;
-                loadFlashcards(data.flashcards); // Load flashcards từ bộ dữ liệu
+                loadFlashcards(data.flashcards); // Load flashcards from data
             } else {
                 alert('Flashcard set not found.');
                 window.location.href = 'index.html';
@@ -65,17 +65,17 @@ function loadFlashcardSet(flashcardSetId) {
         });
 }
 
-// Load flashcards vào mảng và hiển thị flashcard đầu tiên
+// Load flashcards into array and display the first flashcard
 function loadFlashcards(flashcards) {
-    flashcardsArray = Object.entries(flashcards); // Chuyển flashcards thành mảng [id, flashcard]
-    currentFlashcardIndex = 0; // Reset chỉ mục về 0
-    displayFlashcard(); // Hiển thị flashcard đầu tiên
+    flashcardsArray = Object.entries(flashcards); // Convert flashcards to array [id, flashcard]
+    currentFlashcardIndex = 0; // Reset index to 0
+    displayFlashcard(); // Display the first flashcard
 }
 
-// Hiển thị flashcard hiện tại
+// Display the current flashcard
 function displayFlashcard() {
     const flashcardsList = document.getElementById('flashcard-container');
-    flashcardsList.innerHTML = ''; // Xóa nội dung cũ
+    flashcardsList.innerHTML = ''; // Clear old content
 
     if (flashcardsArray.length === 0) {
         flashcardsList.innerHTML = '<p>No flashcards available.</p>';
@@ -95,13 +95,13 @@ function displayFlashcard() {
     `;
     flashcardsList.appendChild(flashcardItem);
 
-    // Thêm sự kiện click để lật flashcard
+    // Add click event to flip flashcard
     flashcardItem.addEventListener('click', () => {
         flashcardItem.classList.toggle('flipped');
     });
 }
 
-// Điều hướng tới flashcard trước
+// Navigate to the previous flashcard
 document.getElementById('prev-btn').addEventListener('click', () => {
     if (currentFlashcardIndex > 0) {
         currentFlashcardIndex--;
@@ -111,7 +111,7 @@ document.getElementById('prev-btn').addEventListener('click', () => {
     }
 });
 
-// Điều hướng tới flashcard tiếp theo
+// Navigate to the next flashcard
 document.getElementById('next-btn').addEventListener('click', () => {
     if (currentFlashcardIndex < flashcardsArray.length - 1) {
         currentFlashcardIndex++;
